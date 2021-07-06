@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>login</title>
+    <script src="/webjars/jquery/jquery.min.js"></script>
+</head>
+<body>
+<input id="name" type="text"/>
+<br/>
+<button id="login">登陆</button>
+</body>
+<script>
+    $(function () {
+        $("#login").click(function () {
+            var name = $("#name").val();
+            if (name == null){
+                alert("name can not be null")
+            }
+            window.location.href = "game_list_page?name="+name
+        });
+    });
+</script>
+</html>

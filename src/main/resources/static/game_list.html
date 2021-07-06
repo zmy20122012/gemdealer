@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>game list</title>
+    <script src="/webjars/jquery/jquery.min.js"></script>
+</head>
+<body>
+<div>
+    <input id="game_name" type="text" />
+    <button id="create_game">create game</button>
+</div>
+game list
+<div id="list"></div>
+<script>
+    $(function () {
+        $.ajax({
+            url:"game_list",
+            method: "get",
+            success:function (data) {
+                console.log(data);
+                $("#list").html(""+data);
+            }
+        })
+
+        $("#create_game").click(function () {
+            var game_name = $("#game_name").val();
+            if (game_name == null){
+                alert("name can not be null")
+                return
+            }
+            $.ajax({
+                url:"create_game?name="+game_name,
+                method: "get",
+                success:function (data) {
+                    console.log(data);
+                    $("#list").html(""+data);
+                }
+            })
+        })
+    })
+</script>
+</body>
+</html>
