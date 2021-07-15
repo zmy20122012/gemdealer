@@ -26,7 +26,7 @@ public class InvestorPool {
 
     public <T> List<T> randomPick(List<T> data, int sum) {
         Set<Integer> resultIndex = new HashSet<>();
-        if (resultIndex.size() < sum) {
+        while (resultIndex.size() < sum) {
             int result = (int) (Math.random() * data.size());
             resultIndex.add(result);
         }

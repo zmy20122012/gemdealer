@@ -4,6 +4,7 @@ import com.zmy.gemdealer.model.Game;
 import com.zmy.gemdealer.services.GameService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
@@ -39,9 +40,9 @@ public class MainController {
     }
 
     @GetMapping("/game/join")
-    public void joinGame(String playerName, String gameId) {
+    public void joinGame(@Header("simpSessionId")String playerSessionId, String playerName, String gameId) {
         log.info("player {} joined game {}", playerName, gameId);
-        gameService.joinGame(playerName, gameId);
+        gameService.joinGame(playerSessionId, playerName, gameId);
     }
 
     @GetMapping("/game/start")
@@ -74,7 +75,7 @@ public class MainController {
         if (bookedAssetIdx != null) {
             return gameService.exchangeBookedAsset(gameId, name, bookedAssetIdx);
         }
-        return gameService.exchangePublicAsset(gameId, name, assetIdx, level);
+        return gameService.exchangePublicAsset(gameId, name, level, assetIdx);
     }
 
     @GetMapping("/choose_investor")

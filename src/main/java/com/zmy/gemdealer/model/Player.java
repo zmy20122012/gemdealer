@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.LinkedList;
 import java.util.List;
 
 @Data
@@ -34,11 +35,18 @@ public class Player {
     public Player(String name, String sessionId) {
         this.name = name;
         this.sessionId = sessionId;
+        this.diamondAssets = new LinkedList<>();
+        this.blueAssets = new LinkedList<>();
+        this.greenAssets = new LinkedList<>();
+        this.redAssets = new LinkedList<>();
+        this.blackAssets = new LinkedList<>();
+        this.investors = new LinkedList<>();
+        this.bookedAssets = new LinkedList<>();
     }
 
     public void addGem(int diamond, int blue, int green, int red, int black) {
         this.diamonds += diamond;
-        this.blackGems += blue;
+        this.blueGems += blue;
         this.greenGems += green;
         this.redGems += red;
         this.blackGems += black;
@@ -51,7 +59,7 @@ public class Player {
     public void reduceGem(int gold, int diamond, int blue, int green, int red, int black) {
         this.golds -= gold;
         this.diamonds -= diamond;
-        this.blackGems -= blue;
+        this.blueGems -= blue;
         this.greenGems -= green;
         this.redGems -= red;
         this.blackGems -= black;

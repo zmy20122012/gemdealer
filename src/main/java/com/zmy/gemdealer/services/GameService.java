@@ -4,6 +4,7 @@ import com.zmy.gemdealer.config.InvestorsAndAssets;
 import com.zmy.gemdealer.model.Game;
 import com.zmy.gemdealer.model.Player;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,14 +13,14 @@ import java.util.Map;
 @Service
 public class GameService {
     @Autowired
-    private Map<String, Player> playerMap;
-    @Autowired
     private Map<String, Game> gameMap;
     @Autowired
     InvestorsAndAssets investorsAndAssets;
+    @Autowired
+    PlayerService playerService;
 
-    public void joinGame(String playerName, String gameId) {
-        Player player = playerMap.get(playerName);
+    public void joinGame(String playerSessionId, String playerName, String gameId) {
+        Player player = playerService.getOrCreatePlayerByName(playerName, playerSessionId);
         Game game = gameMap.get(gameId);
         boolean addSuccess = game.addPlayer(player);
         if (!addSuccess) {
